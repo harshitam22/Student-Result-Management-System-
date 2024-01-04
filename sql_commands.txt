@@ -1,0 +1,53 @@
+CREATE TABLE `student_result_management_system`.`student` ( `sid` INT(5) NOT NULL AUTO_INCREMENT ,  `sname` VARCHAR(100) NOT NULL ,  `DOB` DATE NOT NULL ,  `sec` VARCHAR(5) NOT NULL ,  `sem` INT NOT NULL ,  `phone` BIGINT(10) NOT NULL ,  `email` VARCHAR(50) NOT NULL ,  `password` VARCHAR(50) NOT NULL ,    PRIMARY KEY  (`sid`)) ENGINE = InnoDB;
+
+CREATE TABLE `student_result_management_system`.`course` ( `cid` INT(5) NOT NULL AUTO_INCREMENT ,  `code` VARCHAR(6) NOT NULL ,  `name` VARCHAR(50) NOT NULL ,    PRIMARY KEY  (`cid`)) ENGINE = InnoDB;
+
+CREATE TABLE `student_result_management_system`.`course` ( `cid` INT(5) NOT NULL AUTO_INCREMENT ,  `code` VARCHAR(6) NOT NULL ,  `name` VARCHAR(50) NOT NULL ,    PRIMARY KEY  (`cid`)) ENGINE = InnoDB;
+
+ALTER TABLE course AUTO_INCREMENT=20000;
+
+ALTER TABLE faculty AUTO_INCREMENT=10000;
+
+CREATE TABLE `student_result_management_system`.`exam` ( `eid` INT(5) NOT NULL AUTO_INCREMENT , `type` CHAR NOT NULL , `marks` INT(3) NOT NULL , `max_marks` INT(3) NOT NULL , `sid` INT(5) NOT NULL , `cid` INT(5) NOT NULL , `debarred` CHAR NOT NULL , `recheck` CHAR NOT NULL , PRIMARY KEY (`eid`)) ENGINE = InnoDB;
+
+alter TABLE exam ADD CONSTRAINT stud_fk Foreign KEY(sid) REFERENCES student(sid);
+
+alter TABLE exam ADD CONSTRAINT course_exam_fk Foreign KEY(cid) REFERENCES course(cid);
+
+ALTER TABLE exam
+ADD CHECK ('type' IN ('R','B'))
+
+ALTER TABLE exam
+ADD CHECK ('debarred' IN ('Y','N'))
+
+ALTER TABLE exam
+ADD CHECK ('recheck' IN ('Y','N'))
+
+CREATE TABLE `student_result_management_system`.`teaches` ( `fid` INT(5) NOT NULL , `cid` INT(5) NOT NULL , PRIMARY KEY (`fid`, `cid`)) ENGINE = InnoDB;
+
+ALTER TABLE teaches
+ADD CONSTRAINT f_teach_fk FOREIGN KEY(fid) REFERENCES faculty(fid)
+
+ALTER TABLE teaches
+ADD CONSTRAINT c_teach_fk FOREIGN KEY(cid) REFERENCES course(cid)
+
+ALTER TABLE `faculty` ADD UNIQUE(`email`);
+
+INSERT INTO `course` (`cid`, `code`, `name`) VALUES (NULL, 'TCS604', 'Computer Networks-1');
+
+INSERT INTO `teaches` (`fid`, `cid`) VALUES ('10000', '20000');
+
+INSERT INTO `course` (`cid`, `code`, `name`) VALUES (NULL, 'TCS504', 'CBNST');
+
+INSERT INTO `teaches` (`fid`, `cid`) VALUES ('10000', '20001');
+
+INSERT INTO `student` (`sid`, `sname`, `DOB`, `sec`, `sem`, `phone`, `email`, `password`) VALUES (NULL, 'Sahil', '2002-02-11', 'CE', '6', '1234567890', 'sahil@hmail.com', 'sahil');
+
+ALTER TABLE `student` ADD UNIQUE(`email`);
+
+ALTER TABLE `exam` ADD `sem` INT NOT NULL AFTER `recheck`
+
+ALTER TABLE exam AUTO_INCREMENT=30000;
+
+
+
